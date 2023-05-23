@@ -1,8 +1,7 @@
 import { Model, Schema, model } from "mongoose";
-import { IBook, IBookMethods, bookModel } from "./book.interface";
+import { IBook, bookModel } from "./book.interface";
 
-
-const bookSchema = new Schema<IBook, bookModel, IBookMethods>({
+const bookSchema = new Schema<IBook, bookModel>({
   title: {
     type: String,
     required: true,
@@ -49,15 +48,14 @@ const bookSchema = new Schema<IBook, bookModel, IBookMethods>({
     type: String,
     required: true,
   },
-  featured:{
-    type:String,
-  }
-  
+  featured: {
+    type: String,
+  },
 });
 
-bookSchema.statics.getFeaturedBooks = async function() {
+bookSchema.statics.getFeaturedBooks = async function () {
   try {
-    const featuredBooks = await this.aggregate([
+    const featuredBooks = await Book.aggregate([
       {
         $match: { rating: { $gte: 4 } },
       },
@@ -65,41 +63,21 @@ bookSchema.statics.getFeaturedBooks = async function() {
         $addFields: {
           featured: {
             $cond: [
-              { $gte: ['$rating', 4.5] },
-              'BestSeller',
+              { $lte: ['$rating', 4.5] },
               'Popular',
-            ],
+              'BestSeller'
+            ]
           },
         },
       },
-      {
-        $merge: {
-          into: "",
-        }
-      }
     ]);
-
-    const bulkOps = featuredBooks.map((book) => ({
-      updateOne: {
-        filter: { _id: book._id },
-        update: { $set: { featured: book.featured } },
-      },
-    }));
-
-    if (bulkOps.length > 0) {
-      await this.bulkWrite(bulkOps);
-    }
-
-    console.log('Featured field updated successfully.');
+    console.log(featuredBooks);
+    return featuredBooks;
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-const Book = model<IBook,bookModel >('Book', bookSchema);
+const Book = model<IBook, bookModel>("Book", bookSchema);
 export default Book;
-
-
-
-

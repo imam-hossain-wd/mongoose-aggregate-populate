@@ -21,12 +21,16 @@ export interface IBook {
 
   // instance
 
-  export interface IBookMethods {
-    setFeaturedField(): string;
-  }
+  // export interface IBookMethods {
+  //   setFeaturedField(): string;
+  // }
   
-  export interface bookModel extends Model<IBook, {}, IBookMethods> {
-    getFeaturedBooks(): Promise<HydratedDocument<IBook, IBookMethods>>;
+  // export interface bookModel extends Model<IBook, {}, IBookMethods> {
+  //   getFeaturedBooks(): Promise<HydratedDocument<IBook, IBookMethods>>;
+  // }
+
+  export interface bookModel extends Model<IBook, {}> {
+    getFeaturedBooks(): Promise<HydratedDocument<IBook>>;
   }
 
 

@@ -22,33 +22,36 @@ export const getBooksByGenreAndPublisherFromDB = async (
   return books;
 };
 
+
 //task 4 
 // getFeaturedBooks
-
 export const getFeaturedBooksFromDB = async () => {
-  try {
-    const featuredBooks = await Book.aggregate([
-      {
-        $match: { rating: { $gte: 4 } }
-      },
-      {
-        $addFields: {
-          featured: {
-            $cond: [
-              { $gte: ['$rating', 4.5] },
-              'BestSeller',
-              'Popular'
-            ]
-          }
-        }
-      }
-    ]);
-    console.log(featuredBooks);
-    return featuredBooks;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+  const featuredBook = await Book.getFeaturedBooks();
+  console.log(featuredBook);
+  return featuredBook;
+  // try {
+  //   const featuredBooks = await Book.aggregate([
+  //     {
+  //       $match: { rating: { $gte: 4 } }
+  //     },
+  //     {
+  //       $addFields: {
+  //         featured: {
+  //           $cond: [
+  //             { $gte: ['$rating', 4.5] },
+  //             'BestSeller',
+  //             'Popular'
+  //           ]
+  //         }
+  //       }
+  //     }
+  //   ]);
+  //   console.log(featuredBooks);
+  //   return featuredBooks;
+  // } catch (error) {
+  //   console.error(error);
+  //   throw error;
+  // }
 };
 
 //task 5
