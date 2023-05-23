@@ -1,0 +1,73 @@
+import { getFeacturesBooks } from './book.controller';
+import { IBook } from "./book.interface"
+import Book from './book.model';
+
+
+
+//task 2 find book by genre
+export const getUserByGenreFromDB = async ( payload: string): Promise<IBook | null> => {
+  const book = await Book.findOne({ genre: payload });
+  return book;
+};
+
+// task 3 find book with a specific genre “Sci-Fi” and published by “Roli Books
+export const getBooksByGenreAndPublisherFromDB = async (
+  genre: string,
+  publisher: string
+): Promise<IBook[]> => {
+  const books = await Book.find({
+    genre: genre,
+    "publisher.name": publisher,
+  });
+  return books;
+};
+
+//task 4 
+// getFeaturedBooks
+
+export const getFeaturedBooksFromDB = async () => {
+  try {
+    const featuredBooks = await Book.aggregate([
+      {
+        $match: { rating: { $gte: 4 } }
+      },
+      {
+        $addFields: {
+          featured: {
+            $cond: [
+              { $gte: ['$rating', 4.5] },
+              'BestSeller',
+              'Popular'
+            ]
+          }
+        }
+      }
+    ]);
+    console.log(featuredBooks);
+    return featuredBooks;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+
+};
+// export const getFeaturedBooksFromDB = async () => {
+//   try {
+//     const featuredBooks = await Book.find({ rating: { $gte: 4 } }).lean();
+//     const updatedBooks = featuredBooks.map((book) => {
+//       if (book.rating >= 4.5) {
+//         return { ...book, featured: "BestSeller" };
+//       } else {
+//         return { ...book, featured: "Popular" };
+//       }
+//     });
+//     console.log(updatedBooks);
+//     return updatedBooks;
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// };
+
+
