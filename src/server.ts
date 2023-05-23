@@ -10,7 +10,6 @@ const run = async () => {
     }
     catch(err){
         console.log(err)
-
     }
 }
 run().catch(err => console.error(err))

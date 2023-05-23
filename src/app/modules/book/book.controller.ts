@@ -10,8 +10,7 @@ export const getUserByGenre = async (
 ) => {
   const { genre } = req.params;
   const user = await getUserByGenreFromDB(genre);
-  console.log("hitted from getUserByGenre", genre);
-
+  
   res.status(200).json({
     status: "success",
     data: user,
@@ -31,7 +30,6 @@ export const getBooksByGenreAndPublisher = async (req: Request, res: Response) =
     });
   };
 
-
   //task 3 get features books
   export const getFeacturesBooks = async (
     req: Request,
@@ -39,11 +37,11 @@ export const getBooksByGenreAndPublisher = async (req: Request, res: Response) =
     next: NextFunction
   ) => {
     const featuredBooks = await getFeaturedBooksFromDB();
-    // res.status(200).json({
-    //   status:'success',
-    //   data:featuredBooks
-    // })
-    res.send(featuredBooks)
+    res.status(200).json({
+      status:'success',
+      data:featuredBooks
+    })
+
  };
 
 
@@ -53,9 +51,9 @@ export const getBooksByGenreAndPublisher = async (req: Request, res: Response) =
   next: NextFunction
 ) => {
   const data = await updatePriceStringToInteger();
-  console.log('update data====',data);
   res.status(200).json({
     status:'success',
     data:data
   })
+
 };

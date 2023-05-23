@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { getBooksByGenreAndPublisher, getFeacturesBooks, getUserByGenre, updateBooksPrice} from "./book.controller";
 
-
 const router:Router = Router();
 
 
