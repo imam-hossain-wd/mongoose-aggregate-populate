@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import {getBooksByGenreAndPublisherFromDB, getFeaturedBooksFromDB, getUserByGenreFromDB} from "./book.service";
+import {getBooksByGenreAndPublisherFromDB, getFeaturedBooksFromDB, getUserByGenreFromDB, updatePriceStringToInteger} from "./book.service";
 
 // get book by genre 
 
@@ -39,9 +39,23 @@ export const getBooksByGenreAndPublisher = async (req: Request, res: Response) =
     next: NextFunction
   ) => {
     const featuredBooks = await getFeaturedBooksFromDB();
-    res.status(200).json({
-      status:'success',
-      data:featuredBooks
-    })
+    // res.status(200).json({
+    //   status:'success',
+    //   data:featuredBooks
+    // })
+    res.send(featuredBooks)
  };
 
+
+ export const updateBooksPrice = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const data = await updatePriceStringToInteger();
+  console.log('update data====',data);
+  res.status(200).json({
+    status:'success',
+    data:data
+  })
+};

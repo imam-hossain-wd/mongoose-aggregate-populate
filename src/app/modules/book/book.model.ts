@@ -2,7 +2,6 @@ import { Model, Schema, model } from "mongoose";
 import { IBook, IBookMethods, bookModel } from "./book.interface";
 
 
-
 const bookSchema = new Schema<IBook, bookModel, IBookMethods>({
   title: {
     type: String,

@@ -49,25 +49,27 @@ export const getFeaturedBooksFromDB = async () => {
     console.error(error);
     throw error;
   }
-
-
 };
-// export const getFeaturedBooksFromDB = async () => {
-//   try {
-//     const featuredBooks = await Book.find({ rating: { $gte: 4 } }).lean();
-//     const updatedBooks = featuredBooks.map((book) => {
-//       if (book.rating >= 4.5) {
-//         return { ...book, featured: "BestSeller" };
-//       } else {
-//         return { ...book, featured: "Popular" };
-//       }
-//     });
-//     console.log(updatedBooks);
-//     return updatedBooks;
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// };
+
+//task 5
+
+export const updatePriceStringToInteger = async()=> {
+  await Book.updateMany(
+    {
+       publicationYear: { $gt: 2020 },
+       price: { $type: 'string'},
+     },
+   [
+     {
+       $set: {
+         price: {
+           $toInt: "$price"
+         }
+       }
+     }
+   ]
+ )
+}
+
 
 
