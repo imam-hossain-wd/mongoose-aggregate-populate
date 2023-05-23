@@ -17,18 +17,6 @@ export interface IBook {
     price: string;
     featured: string
   };
-
-
-  // instance
-
-  // export interface IBookMethods {
-  //   setFeaturedField(): string;
-  // }
-  
-  // export interface bookModel extends Model<IBook, {}, IBookMethods> {
-  //   getFeaturedBooks(): Promise<HydratedDocument<IBook, IBookMethods>>;
-  // }
-
   export interface bookModel extends Model<IBook, {}> {
     getFeaturedBooks(): Promise<HydratedDocument<IBook>>;
   }
