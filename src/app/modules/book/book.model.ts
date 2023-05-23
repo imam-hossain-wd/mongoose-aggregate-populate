@@ -98,19 +98,6 @@ bookSchema.statics.getFeaturedBooks = async function() {
   }
 };
 
-// bookSchema.statics.getFeaturedBooks = function () {
-//   return this.find({ rating: { $gte: 4 } }).exec();
-// };
-
-// bookSchema.methods.setFeaturedField = function (): string {
-//   if (this.rating >= 4.5) {
-//     this.featured = 'BestSeller';
-//   } else {
-//     this.featured = 'Popular';
-//   }
-//   return this.featured;
-// };
-
 const Book = model<IBook,bookModel >('Book', bookSchema);
 export default Book;
 

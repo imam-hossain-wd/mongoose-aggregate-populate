@@ -18,8 +18,8 @@ export const getUserByGenre = async (
   });
 };
 
-//get books by genre and published
 
+//get books by genre and published
 export const getBooksByGenreAndPublisher = async (req: Request, res: Response) => {
 
     const { genre, publisher } = req.params;
@@ -29,7 +29,8 @@ export const getBooksByGenreAndPublisher = async (req: Request, res: Response) =
       status: "success",
       data: books,
     });
-  } ;
+  };
+
 
   //task 3 get features books
   export const getFeacturesBooks = async (
@@ -42,6 +43,5 @@ export const getBooksByGenreAndPublisher = async (req: Request, res: Response) =
       status:'success',
       data:featuredBooks
     })
-    
-  };
+ };
 
