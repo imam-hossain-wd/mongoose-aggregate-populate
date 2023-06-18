@@ -256,4 +256,5 @@ To find documents where the "tags" array field has exactly three elements:
 db.collection.find({ tags: { $size: 3 } });
 This query will return documents where the "tags" array field has three elements.
 
-The "$size" operator is useful when you want to perform queries based on the specific number of elements in an array field. It enables you to filter and retrieve documents based on the size of the array, providing a way to perform array-specific queries in MongoDB.
+The "$size" operator is useful when you want to perform queries based on the specific number of elements in an array field. It enables you to filter and retrieve documents based on the size of the array, providing a way to perform array-specific queries in MongoDB."# typescript-mongoose-aggregation" 
+"# typescript-mongoose-aggregation" 
